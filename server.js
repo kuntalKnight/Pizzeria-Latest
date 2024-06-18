@@ -10,7 +10,7 @@ const flash = require('express-flash')
 const MongoDbStore = require('connect-mongo')(session)
 const passport = require('passport')
 const Emitter = require('events')
-
+const morgan = require('morgan');
 // Database Connection
 // const URL = `mongodb://localhost:27017/pizza`
 const URL = process.env.MONGO_CONNECTION_URL
@@ -36,7 +36,7 @@ let mongoStore = new MongoDbStore({
 // Event emitter
 const eventEmitter = new Emitter()
 app.set('eventEmitter', eventEmitter)
-
+app.use(morgan('dev'));
 // Session config
 app.use(session({
     secret: process.env.COOKIE_SECRET,
